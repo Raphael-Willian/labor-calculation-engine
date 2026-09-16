@@ -29,3 +29,11 @@ Esse projeto tem como objetivo principal, ser uma engine de cálculos trabalhist
 * Constituição Federal (CF/88): Art. 7º, Inciso XV — Assegura o direito ao repouso semanal remunerado, preferencialmente aos domingos.
 * Lei nº 605/1949: Art. 1º — Regulamenta especificamente o DSR, garantindo o repouso de 24 horas consecutivas, bem como a remuneração nos feriados civis e religiosos.
 * CLT (Consolidação das Leis do Trabalho): Art. 67 — Reitera a garantia do descanso de 24 horas consecutivas a todo empregado, prevendo a coincidência obrigatória com o domingo, salvo exceções de conveniência pública ou necessidade do serviço.
+
+## Escopo Inicial o Projeto
+* Java 21
+* Maven (Como Gerenciador de Dependências)
+* Spring Framework v4.1.1
+* Docker
+* Redis
+* PostgreSQL
