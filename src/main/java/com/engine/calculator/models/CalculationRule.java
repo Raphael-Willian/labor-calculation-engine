@@ -39,6 +39,10 @@ public class CalculationRule {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime  createdAt = LocalDateTime.now();
 
+    @OneToMany(mappedBy = "idVersionRule", cascade = CascadeType.REMOVE)
+    @Column(name = "version_rule", nullable = false, updatable = true)
+    private RuleVersion versionRule;
+
     @ManyToOne
     @JoinColumn(name = "created_by", nullable = false, referencedColumnName = "user_name")
     private User createdBy;
