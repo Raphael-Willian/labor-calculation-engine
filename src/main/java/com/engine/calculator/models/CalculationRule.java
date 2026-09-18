@@ -12,6 +12,7 @@ import java.util.UUID;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "calculation_rule")
 public class CalculationRule {
 
     @Id
