@@ -28,4 +28,8 @@ public class Tenant {
     @Column(name = "status_activity")
     private TenantActivityStatus statusActivity;
 
+    @OneToMany(mappedBy = "idUser", cascade = CascadeType.REMOVE)
+    @Column(name = "id_user")
+    private User user;
+
 }
