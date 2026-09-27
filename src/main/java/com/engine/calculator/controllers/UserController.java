@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.http.HttpResponse;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -31,20 +32,20 @@ public class UserController {
     }
 
     @GetMapping()
-    public ResponseEntity<User> readUser(@RequestBody User userRequest) {
+    public ResponseEntity<User> readUsers() {
 
-        User userResponse = userService.read(userRequest);
+        List<User> userResponse = userService.read();
 
-        return ResponseEntity.status(HttpStatus.OK).body(userResponse);
+        return ResponseEntity.status(HttpStatus.OK).build();
 
     }
 
     @PutMapping("/{idUser}")
     public ResponseEntity<User> updateUser(@RequestParam UUID idUser, @RequestBody User userRequest) {
 
-        User userResponse = userService.update(idUser, userRequest);
+        userService.update(idUser, userRequest);
 
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(userResponse);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
     }
 
@@ -56,9 +57,5 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 
     }
-
-
-
-
 
 }
