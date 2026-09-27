@@ -50,7 +50,7 @@ public class TenantController {
 
         tenantService.delete(idTenant);
 
-        return ResponseEntity.status(HttpStatus.ACCEPTED);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 
     }
 
