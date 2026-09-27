@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @GetMapping()
-    public ResponseEntity<User> readUsers() {
+    public ResponseEntity<List<User>> readUsers() {
 
         List<User> userResponse = userService.read();
 
