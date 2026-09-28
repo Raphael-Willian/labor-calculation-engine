@@ -3,15 +3,17 @@ package com.engine.calculator.models;
 import com.engine.calculator.enums.TypeValueInput;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Generated;
-import org.hibernate.generator.EventType;
+import lombok.Setter;
 
 import java.util.UUID;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Table(name = "rule_parameter")
 public class RuleParameter {
 
@@ -20,19 +22,18 @@ public class RuleParameter {
     @Column(name = "id_parameter_rule", nullable = false, unique = true)
     private UUID idParameterRule;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "rule_version_to_parameter", nullable = false, referencedColumnName = "version_rule_id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "rule_version_id", nullable = false)
     private RuleVersion ruleVersionToParameter;
 
-    @Column(name = "key", nullable = false)
-    private String key; //Nome técnico do parâmetro
+    @Column(name = "parameter_key", nullable = false) // "key" é palavra reservada em vários bancos de dados
+    private String key;
 
-    @Column(name = "type_of_value", nullable = false, updatable = true)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type_of_value", nullable = false)
     private TypeValueInput typeOfValue;
 
-    @Column(name = "required", nullable = false, updatable = true, columnDefinition = "BOOLEAN DEFAULT TRUE")
-    @Generated(event = EventType.INSERT)
-    private boolean required;
-
+    @Column(name = "required", nullable = false)
+    private boolean required = true;
 
 }

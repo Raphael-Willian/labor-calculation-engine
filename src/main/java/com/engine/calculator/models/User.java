@@ -25,17 +25,18 @@ public class User {
     @Column(name = "user_name", nullable = false, length = 155)
     private String nameUser;
 
-    @Column(name = "user_email", nullable = false, length = 318, updatable = true)
+    @Column(name = "user_email", nullable = false, length = 318)
     private String emailUser;
 
-    @Column(name = "user_password", nullable = false, length = 50, updatable = true)
+    @Column(name = "user_password", nullable = false, length = 255)
     private String passwordUser;
 
-    @Column(name = "user_role", nullable = false, updatable = true)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_role", nullable = false)
     private UserRole roleUser;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_tenant", nullable = false, referencedColumnName = "tenant_id")
+    @JoinColumn(name = "tenant_id", nullable = false)
     private Tenant tenant;
 
 }
