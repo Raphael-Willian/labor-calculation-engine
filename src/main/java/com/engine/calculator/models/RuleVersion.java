@@ -3,9 +3,9 @@ package com.engine.calculator.models;
 import com.engine.calculator.enums.StatusVersionRule;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Generated;
-import org.hibernate.generator.EventType;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,6 +15,8 @@ import java.util.UUID;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Table(name = "rule_version")
 public class RuleVersion {
 
@@ -23,29 +25,28 @@ public class RuleVersion {
     @Column(name = "version_rule_id", nullable = false, updatable = false, unique = true)
     private UUID idVersionRule;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "rule_id", nullable = false, referencedColumnName = "calculation_rule_id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "calculation_rule_id", nullable = false)
     private CalculationRule rule;
 
-    @Column(name = "valid_from", nullable = false, columnDefinition = "DATE DEFAULT CURRENT_DATE", updatable = true)
-    @Generated(event = EventType.INSERT)
-    private LocalDate validFrom; //Válido a partir de...
+    @Column(name = "valid_from", nullable = false)
+    private LocalDate validFrom;
 
-    @Column(name = "valid_until", updatable = true)
-    private LocalDate validUntil; //Válido até...
+    @Column(name = "valid_until")
+    private LocalDate validUntil;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "create_by", nullable = false, updatable = false, referencedColumnName = "user_name")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by_user_id", nullable = false)
     private User createdBy;
 
-    @OneToMany(mappedBy = "idParameterRule", cascade = CascadeType.REMOVE)
-    @Column(name = "parameters", nullable = false, updatable = true)
+    @OneToMany(mappedBy = "ruleVersionToParameter", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RuleParameter> parameters;
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createAt = LocalDateTime.now();
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
 
-    @Column(name = "status_version_rule",nullable = false, updatable = true)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_version_rule", nullable = false)
     private StatusVersionRule statusVersionRule;
 
 }

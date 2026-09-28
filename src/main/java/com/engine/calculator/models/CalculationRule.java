@@ -4,14 +4,19 @@ import com.engine.calculator.enums.CalculationRuleActivity;
 import com.engine.calculator.enums.CalculationType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "calculation_rule")
 public class CalculationRule {
 
@@ -20,35 +25,35 @@ public class CalculationRule {
     @Column(name = "calculation_rule_id", unique = true, nullable = false)
     private UUID idCalculationRule;
 
-    @Column(name = "name_calculation_rule", length = 255, updatable = true, nullable = false)
+    @Column(name = "name_calculation_rule", length = 255, nullable = false)
     private String nameCalculationRule;
 
-    //Este atributo consiste em um nome "identificador" definido pelo usuário. Como se o usuário pudesse ter uma família de calculos
-    @Column(name = "code_calculation_rule", length = 50, updatable = true)
+    @Column(name = "code_calculation_rule", length = 50)
     private String codeCalculationRule;
 
-    @Column(name = "type_calculation_rule", nullable = false, updatable = true)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type_calculation_rule", nullable = false)
     private CalculationType typeCalculationRule;
 
-    @Column(name = "description", length = 455, updatable = true)
+    @Column(name = "description", length = 455)
     private String description;
 
-    @Column(name = "status_activity_rule", nullable = false, updatable = true)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_activity_rule", nullable = false)
     private CalculationRuleActivity statusActivityRule;
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime  createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt = LocalDateTime.now();
 
-    @OneToMany(mappedBy = "idVersionRule", cascade = CascadeType.REMOVE)
-    @Column(name = "version_rule", nullable = false, updatable = true)
-    private RuleVersion versionRule;
+    @OneToMany(mappedBy = "rule", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RuleVersion> versions;
 
-    @ManyToOne
-    @JoinColumn(name = "created_by", nullable = false, referencedColumnName = "user_name")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by_user_id", nullable = false)
     private User createdBy;
 
-    @ManyToOne
-    @JoinColumn(name = "tenant_owner_rule", nullable = false, referencedColumnName = "tenant_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tenant_id", nullable = false)
     private Tenant tenantOwnerRule;
 
 }
