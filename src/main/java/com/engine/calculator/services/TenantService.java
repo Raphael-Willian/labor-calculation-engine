@@ -1,5 +1,6 @@
 package com.engine.calculator.services;
 
+import com.engine.calculator.dtos.requests.CreateTenantRequest;
 import com.engine.calculator.models.Tenant;
 import com.engine.calculator.repositorys.TenantRepository;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,14 @@ public class TenantService {
     }
 
 
-    public Tenant create(Tenant tenantRequest){
+    public Tenant create(CreateTenantRequest request){
 
-        return tenantRepository.save(tenantRequest);
+        Tenant tenant = new Tenant();
+
+        tenant.setNameTenant(request.getName());
+        tenant.setStatusActivity(request.getStatus());
+
+        return tenantRepository.save(tenant);
 
     }
 

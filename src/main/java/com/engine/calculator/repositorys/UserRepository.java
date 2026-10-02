@@ -4,11 +4,13 @@ import com.engine.calculator.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 //Anotação redundante mas deixarei por razões semânticas
 @Repository
 public interface UserRepository extends JpaRepository<User,UUID> {
 
+    Optional<User> findByEmailUser(String email);
 
 }

@@ -1,7 +1,9 @@
 package com.engine.calculator.services;
 
+import com.engine.calculator.dtos.requests.CreateUserRequest;
 import com.engine.calculator.models.User;
 import com.engine.calculator.repositorys.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,15 +14,25 @@ public class UserService {
 
     //@Autowired posteriormente...
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passswordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passswordEncoder;
     }
 
     //Métodos criados apenas para implementação do controller. Porém, serão reformulados.
-    public User create(User userRequest) {
+    public User create(CreateUserRequest request) {
 
-        return userRepository.save(userRequest);
+        User user = new User();
+
+        user.setNameUser(request.getName());
+        user.setEmailUser(request.getEmail());
+        user.setRoleUser(request.getRole());
+        user.setTenant(request.getTenant());
+        user.setPasswordUser(passwordEncoder.encode(request.getPassword()));
+
+        return userRepository.save(user);
 
     }
 
