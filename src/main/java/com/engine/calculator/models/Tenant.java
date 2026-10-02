@@ -1,6 +1,5 @@
 package com.engine.calculator.models;
 
-
 import com.engine.calculator.enums.TenantActivityStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -27,14 +27,14 @@ public class Tenant {
     @Column(name = "name_tenant", length = 255, nullable = false)
     private String nameTenant;
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status_activity")
     private TenantActivityStatus statusActivity;
 
-    @OneToMany(mappedBy = "idUser", cascade = CascadeType.REMOVE)
-    @Column(name = "id_user")
-    private User user;
+    @OneToMany(mappedBy = "tenant", cascade = CascadeType.REMOVE)
+    private List<User> users;
 
 }

@@ -26,5 +26,8 @@ replay_pid*
 # gitignore the past .idea of intellij
 .idea
 
+# Executar git rm -r --cached -f src/main/resources/ eliminar o trackeamento do application yml.
+resources/
+
 #gitignore the archive guia.txt
 guia.txt

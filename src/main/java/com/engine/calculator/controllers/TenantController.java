@@ -1,5 +1,6 @@
 package com.engine.calculator.controllers;
 
+import com.engine.calculator.dtos.requests.CreateTenantRequest;
 import com.engine.calculator.models.Tenant;
 import com.engine.calculator.services.TenantService;
 import org.springframework.http.HttpStatus;
@@ -19,9 +20,9 @@ public class TenantController {
     }
 
     @PostMapping()
-    public ResponseEntity<Tenant> createTenant(@RequestBody Tenant tenantRequest) {
+    public ResponseEntity<Tenant> createTenant(@RequestBody CreateTenantRequest request) {
 
-        Tenant tenant = tenantService.create(tenantRequest);
+        Tenant tenant = tenantService.create(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(tenant);
 
