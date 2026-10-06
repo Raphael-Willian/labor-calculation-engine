@@ -1,10 +1,12 @@
 package com.engine.calculator.controllers;
 
 
+import com.engine.calculator.dtos.requests.CreateUserRequest;
 import com.engine.calculator.models.User;
 import com.engine.calculator.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.http.HttpResponse;
@@ -23,9 +25,9 @@ public class UserController {
     }
 
     @PostMapping()
-    public ResponseEntity<User> createUser(@RequestBody User userRequest) {
+    public ResponseEntity<User> createUser(@RequestBody CreateUserRequest request) {
 
-        User responseUser = userService.create(userRequest);
+        User responseUser = userService.create(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
 

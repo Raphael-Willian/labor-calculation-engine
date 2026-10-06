@@ -3,10 +3,7 @@ package com.engine.calculator.models;
 import com.engine.calculator.enums.CalculationRuleActivity;
 import com.engine.calculator.enums.CalculationType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,6 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 @Table(name = "calculation_rule")
 public class CalculationRule {
 

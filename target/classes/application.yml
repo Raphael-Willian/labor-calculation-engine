@@ -1,0 +1,33 @@
+spring:
+
+  application:
+    name: calculator
+
+  datasource:
+    url: jdbc:h2:mem:database
+    username: h2
+    password:
+    driver-class-name: org.h2.Driver
+
+  security:
+    jwt:
+      secret: "oA9BgkhPj05DP1ZUD9sQSFBNcfjNTsgkfjaN2fUOsCQ="
+      expiration: 3600000
+
+  h2:
+    console:
+      enable: true
+      path: "/h2-console"
+      settings:
+        web-allow-others: true
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+
+    show-sql: true
+
+    properties:
+        hibernate:
+          format_sql: true
